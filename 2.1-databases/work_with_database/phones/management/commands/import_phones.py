@@ -11,7 +11,16 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         with open('phones.csv', 'r') as file:
             phones = list(csv.DictReader(file, delimiter=';'))
-
+            print(phones)
+        
         for phone in phones:
+            Phone.objects.create(
+                name = phone['name'],
+                price = int(phone["price"]),
+                image = phone['image'],
+                release_date = phone['release_date'],
+                lte_exists = phone['lte_exists'],
+                slug = str(phone['name']).replace(' ','-').lower()
+            )
             # TODO: Добавьте сохранение модели
             pass
